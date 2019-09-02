@@ -5,9 +5,12 @@ function App() {
   const [y, setY] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.timing(y, {
-      duration: 2000,
-      toValue: 550,
+    // Animated.spring(y, {
+    //   toValue: 550,
+    //   bounciness: 10,
+    // }).start();
+    Animated.decay(y, {
+      velocity: 0.5,
     }).start();
   }, []);
 
