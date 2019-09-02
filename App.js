@@ -3,12 +3,71 @@ import {View, Animated, StyleSheet, Dimensions} from 'react-native';
 
 function App() {
   const [y, setY] = useState(new Animated.Value(0));
-  const [x, setX] = useState(Animated.divide(y, 2)); // .add, .multiply
+  const [x, setX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.decay(y, {
-      velocity: 0.5,
-    }).start();
+    // Animated.sequence([
+    //   Animated.timing(y, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+
+    //   Animated.timing(x, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+    // ]).start();
+
+    // Animated.parallel([
+    //   Animated.timing(y, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+
+    //   Animated.timing(x, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+    // ]).start();
+
+    // Animated.stagger(50, [
+    //   Animated.timing(y, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+
+    //   Animated.timing(x, {
+    //     duration: 500,
+    //     toValue: 250,
+    //   }),
+    // ]).start();
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(y, {
+          duration: 500,
+          toValue: 250,
+        }),
+
+        Animated.timing(x, {
+          duration: 500,
+          toValue: 250,
+        }),
+
+        Animated.timing(y, {
+          duration: 500,
+          toValue: 0,
+        }),
+
+        Animated.timing(x, {
+          duration: 500,
+          toValue: 0,
+        }),
+      ]),
+      {
+        iterations: 3,
+      },
+    ).start();
   }, []);
 
   return (
