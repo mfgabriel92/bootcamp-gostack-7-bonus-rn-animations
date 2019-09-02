@@ -3,12 +3,9 @@ import {View, Animated, StyleSheet, Dimensions} from 'react-native';
 
 function App() {
   const [y, setY] = useState(new Animated.Value(0));
+  const [x, setX] = useState(Animated.divide(y, 2)); // .add, .multiply
 
   useEffect(() => {
-    // Animated.spring(y, {
-    //   toValue: 550,
-    //   bounciness: 10,
-    // }).start();
     Animated.decay(y, {
       velocity: 0.5,
     }).start();
@@ -16,7 +13,7 @@ function App() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.ball, {top: y}]} />
+      <Animated.View style={[styles.ball, {top: y, left: x}]} />
     </View>
   );
 }
