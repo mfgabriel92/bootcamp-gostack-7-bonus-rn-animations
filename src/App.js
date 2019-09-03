@@ -6,6 +6,7 @@ import Post from './components/Post'
 function App () {
   const [animation] = useState({
     offset: new Animated.ValueXY({ x: 0, y: 25 }),
+    scrollOffset: new Animated.Value(0),
     opacity: new Animated.Value(0)
   })
   const [posts, setPosts] = useState({
@@ -69,9 +70,9 @@ function App () {
     <Container>
       <StatusBar barStyle="light-content" backgroundColor="#005cb2" />
 
-      <Header>
+      <Header animation={animation}>
         <HeaderImage source={posts.selected ? { uri: posts.selected.thumbnail } : null } />
-        <HeaderText>
+        <HeaderText animation={animation}>
           { posts.selected ? posts.selected.title : 'GoNative' }
         </HeaderText>
       </Header>
@@ -83,7 +84,7 @@ function App () {
             onPress={() => {}}
           />
         ) : (
-          <Posts>
+          <Posts animation={animation}>
             { posts.posts.map(post => (
               <Post
                 key={post.id}
