@@ -3,76 +3,37 @@ import {View, Animated, StyleSheet, Dimensions} from 'react-native';
 
 function App() {
   const [y, setY] = useState(new Animated.Value(0));
-  const [x, setX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    // Animated.sequence([
-    //   Animated.timing(y, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-
-    //   Animated.timing(x, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-    // ]).start();
-
-    // Animated.parallel([
-    //   Animated.timing(y, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-
-    //   Animated.timing(x, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-    // ]).start();
-
-    // Animated.stagger(50, [
-    //   Animated.timing(y, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-
-    //   Animated.timing(x, {
-    //     duration: 500,
-    //     toValue: 250,
-    //   }),
-    // ]).start();
-
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(y, {
-          duration: 500,
-          toValue: 250,
-        }),
-
-        Animated.timing(x, {
-          duration: 500,
-          toValue: 250,
-        }),
-
-        Animated.timing(y, {
-          duration: 500,
-          toValue: 0,
-        }),
-
-        Animated.timing(x, {
-          duration: 500,
-          toValue: 0,
-        }),
-      ]),
-      {
-        iterations: 3,
-      },
-    ).start();
+    Animated.timing(y, {
+      toValue: 550,
+      duration: 1000,
+    }).start();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.ball, {top: y, left: x}]} />
+      <Animated.View
+        style={[
+          styles.ball,
+          {
+            top: y,
+            // opacity: y.interpolate({
+            //   inputRange: [0, 300],
+            //   outputRange: [1, 0],
+            // }),
+            // opacity: y.interpolate({
+            //   inputRange: [0, 200, 300],
+            //   outputRange: [1, 1, 0],
+            // }),
+            opacity: y.interpolate({
+              inputRange: [0, 300],
+              outputRange: [1, 0.2],
+              extrapolate: 'clamp',
+            }),
+          },
+        ]}
+      />
     </View>
   );
 }
