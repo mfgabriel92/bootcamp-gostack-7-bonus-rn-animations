@@ -1,8 +1,9 @@
 import styled from 'styled-components/native'
+import { Animated } from 'react-native'
 
 export const Wrapper = styled.TouchableWithoutFeedback``
 
-export const Container = styled.View`
+export const Container = styled(Animated.View)`
   margin-top: 10;
   border-radius: 10;
   flex-direction: column;
